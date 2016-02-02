@@ -4,6 +4,7 @@ package httpd
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -75,6 +76,7 @@ func (s *Service) Close() {
 
 // ServeHTTP allows Service to serve HTTP requests.
 func (s *Service) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(s.store.raft.State())
 	if strings.HasPrefix(r.URL.Path, "/key") {
 		s.handleKeyRequest(w, r)
 	} else if r.URL.Path == "/join" {
